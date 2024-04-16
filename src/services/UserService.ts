@@ -17,23 +17,21 @@ export class UserService {
     this.db = database;
   }
 
-  deleteUser = (email: string) => {
-    const userIndex = this.db.findIndex((user) => user.email === email);
-
+  deleteUser = async(email: string) => {
+    const userIndex = await this.db.findIndex((user) => user.email === email);
     if (userIndex === -1) {
       console.log("Usuário não encontrado");
       return;
     }
-
     this.db.splice(userIndex, 1);
-    console.log("Usuário deletado", this.db);
+    console.log("DB atualizado");
   };
   createUser = (name: string, email: string) => {
     const user = {
       name,
       email,
     };
-    if(!name || !email) {
+    if (!name || !email) {
       console.log("Campos obrigatorios não preenchidos");
       return;
     }
